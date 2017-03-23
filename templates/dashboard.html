@@ -1,0 +1,267 @@
+<!-- Add Task Modal -->
+<div class="modal fade" id="taskModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add new Task !!</h4>
+            </div>
+            
+            <div class="modal-body">
+                <form id="addtask" class="form-horizontal form-addTask" novalidate name="addtask" ng-submit="addTask(addtask.$valid);submitted = true ;">
+                    <div class="form-group">
+                        <label class="control-label">Task Title</label>
+                        <input name="name" class="form-control" required ng-model = "newTask.name" ng-maxlength="45">
+                    </div>
+
+                    <span class="validation" ng-if = "addtask.name.$error.required && submitted "  >Task title cannot be empty !
+                    </span>
+                    <span class="validation" ng-if = "addtask.name.$error.maxlength && submitted " >Task title cannot be more than 45 characters !</span>
+
+                    <div class="form-group">
+                        <label class="control-label">Task Description</label>
+                        <input name="desc" class="form-control" required ng-model = "newTask.Desc" ng-maxlength="200">
+                    </div>
+
+                    <span class="validation" ng-if = "addtask.desc.$error.required && submitted " >Task Description cannot be empty !</span>
+                    <span class="validation" ng-if = "addtask.desc.$error.maxlength  && submitted " >Task Description cannot be more than 200 characters !</span>
+
+                    <div class="form-group">
+                        <label class="control-label">Task dueDate</label>
+                        <input name="dueDate" class="form-control" ng-model = "newTask.dueDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Task Priority</label>
+                        <input name="priority" class="form-control" required ng-model = "newTask.priority">
+                    </div>
+
+                    <span class="validation" ng-if = "addtask.priority.$error.required && submitted ">Task Priority cannot be empty !</span>
+
+                    <div class="form-group">
+                        <label class="control-label">Task status</label><br>
+                        <!-- <input name="status" class="form-control" required ng-model = "newTask.status" > -->
+                        <input type="radio" ng-model = "newTask.status" name="status" value="todo">To Do<br>
+                        <input type="radio" ng-model = "newTask.status" name="status" value="inprogress">Doing<br>
+                        <input type="radio" ng-model = "newTask.status" name="status" value="testing">Testing<br>
+                        <input type="radio" ng-model = "newTask.status" name="status" value="done">Done<br>
+                    </div>
+
+                    <span class="validation" ng-if = "addtask.status.$error.required && submitted " >Task status cannot be empty</span>
+                    <button class="btn btn-success"> Add Task + </button>
+                    <!-- <h1>{{data}}</h1> -->
+                </form>
+            </div>    
+         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Task !!</h4>
+            </div>
+            
+            <div class="modal-body">
+                <form class="form-horizontal form-addTask" novalidate name="updatetask" ng-submit="editTask(updatetask.$valid,editedtask);submitted = true ;">
+                    <div class="form-group">
+                        <label class="control-label">Task Title</label>
+                        <input name="name" class="form-control" required ng-model = "editedtask.taskName" ng-maxlength="45">
+                    </div>
+
+                    <span class="validation" ng-if = "updatetask.name.$error.required && submitted " >Task title cannot be empty !
+                    </span>
+                    <span class="validation" ng-if = "updatetask.name.$error.maxlength && submitted " >Task title cannot be more than 45 characters !</span>
+
+                    <div class="form-group">
+                        <label class="control-label">Task Description</label>
+                        <input name="desc" class="form-control" required ng-model = "editedtask.taskDescription" ng-maxlength="200">
+                    </div>
+
+                    <span class="validation" ng-if = "updatetask.desc.$error.required && submitted " >Task Description cannot be empty !</span>
+                    <span class="validation" ng-if = "updatetask.desc.$error.maxlength  && submitted " >Task Description cannot be more than 200 characters !</span>
+
+                    <div class="form-group">
+                        <label class="control-label">Task dueDate</label>
+                        <input name="dueDate" class="form-control" ng-model = "editedtask.taskDue">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Task Priority</label>
+                        <input name="priority" class="form-control" required ng-model = "editedtask.taskPriority">
+                    </div>
+
+                    <span class="validation" ng-if = "updatetask.priority.$error.required && submitted ">Task Priority cannot be empty !</span>
+
+                    <div class="form-group">
+                        <label class="control-label">Task status</label>
+                        <input name="status" class="form-control" required ng-model = "editedtask.taskStatus" >
+                    </div>
+
+                    <span class="validation" ng-if = "updatetask.status.$error.required && submitted " >Task status cannot be empty</span>
+                    <button class="btn btn-success" ng-discard ng-click="close('editModal',true)"> Save</button>
+                    <button class="btn btn-default" type="button" ng-click="close('editModal',true)">Close</button>
+                </form>
+            </div>    
+         </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+
+<div class="container" ng-init="getData()">
+    <div class="row row-content">
+        <!--- - - - - - - - - Task todo - - - - - - - - - - - -->
+        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+            <div class="panel panel-default task-section">
+                <div class="panel-text-todo">
+                    <div class="panel-heading">
+                        Todo
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#taskModal"><span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                </div>
+                <div class="panel-body panelBodyTodo" droppable drop="handleDrop" bin="bin" id="todo">
+                    <div ng-repeat="task in todo" >
+                        <div id="{{ task.taskID }}" draggable item="item" class="task-bg">
+                            <label class="control-label label-tasks col-xs-6">Task name</label>
+                            <div class="panel-taskname text-center col-xs-6">{{task.taskName}}</div>
+
+                            <label class="control-label label-tasks col-xs-6">Task Desc</label>
+                            <div class="panel-taskDesc text-center col-xs-6">{{task.taskDescription}}</div>
+                            
+                            <label class="control-label label-tasks col-xs-6">Task Priority</label>
+                            <div class="panel-tasktPri text-center col-xs-6">{{task.taskPriority}}</div>
+
+                            <p style="padding:20px;"></p>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <button class="btn btn-primary btn-block panel-editBtn" data-toggle="modal" data-target="#editModal" ng-click="pushmodal(task)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-danger btn-block panel-delBtn" ng-click="deletetask(task.taskID,$event)"><span class="glyphicon glyphicon-trash"></span></button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--- - - - - - - - - Task doing - - - - - - - - - - - -->
+        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-text-doing">
+                    <div class="panel-heading">
+                        Doing
+                       
+                    </div>
+                </div>    
+                <div class="panel-body panelBodyDoing" droppable drop="handleDrop" bin="bin" 
+                id="inprogress">
+                    <div ng-repeat="task in inprogress" >
+                        <div id="{{ task.taskID }}" draggable item="item" class="task-bg">
+                            <label class="control-label label-tasks col-xs-6">Task name</label>
+                            <div class="panel-taskname text-center col-xs-6">{{task.taskName}}</div>
+
+                            <label class="control-label label-tasks col-xs-6">Task Desc</label>
+                            <div class="panel-taskDesc text-center col-xs-6">{{task.taskDescription}}</div>
+                            
+                            <label class="control-label label-tasks col-xs-6">Task Priority</label>
+                            <div class="panel-tasktPri text-center col-xs-6">{{task.taskPriority}}</div>
+
+                            <p style="padding:20px;"></p>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                  <button class="btn btn-primary btn-block panel-editBtn" data-toggle="modal" data-target="#editModal" ng-click="pushmodal(task)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                </div>
+                                 <div class="col-xs-6">
+                                    <button class="btn btn-danger btn-block panel-delBtn" ng-click="deletetask(task.taskID,$event)"><span class="glyphicon glyphicon-trash"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+
+        <!--- - - - - - - - - Task teskting - - - - - - - - - - - -->
+        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-text-testing">
+                    <div class="panel-heading">
+                        Testing
+                        
+                    </div>
+                </div>
+                <div class="panel-body panelBodyTesting" droppable drop="handleDrop" bin="bin" 
+                id="testing">
+                    <div ng-repeat="task in testing" >
+                        <div id="{{ task.taskID }}" draggable item="item" class="task-bg">
+                            <label class="control-label label-tasks col-xs-6">Task name</label>
+                            <div class="panel-taskname text-center col-xs-6">{{task.taskName}}</div>
+
+                            <label class="control-label label-tasks col-xs-6">Task Desc</label>
+                            <div class="panel-taskDesc text-center col-xs-6">{{task.taskDescription}}</div>
+                            
+                            <label class="control-label label-tasks col-xs-6">Task Priority</label>
+                            <div class="panel-tasktPri text-center col-xs-6">{{task.taskPriority}}</div>
+
+                            <p style="padding:20px;"></p>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                   <button class="btn btn-primary btn-block panel-editBtn" data-toggle="modal" data-target="#editModal" ng-click="pushmodal(task)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                </div>
+                                 <div class="col-xs-6">
+                                    <button class="btn btn-danger btn-block panel-delBtn" ng-click="deletetask(task.taskID,$event)"><span class="glyphicon glyphicon-trash"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--- - - - - - - - - Task done - - - - - - - - - - - -->
+        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-text-done">
+                    <div class="panel-heading">
+                        Done
+                        
+                    </div>
+                </div>    
+                <div class="panel-body panelBodyDone" droppable drop="handleDrop" bin="bin" id="done">
+                    <div ng-repeat="task in done" >
+                        <div id="{{ task.taskID }}" draggable item="item" class="task-bg">
+                            <label class="control-label label-tasks col-xs-6">Task name</label>
+                            <div class="panel-taskname text-center col-xs-6">{{task.taskName}}</div>
+
+                            <label class="control-label label-tasks col-xs-6">Task Desc</label>
+                            <div class="panel-taskDesc text-center col-xs-6">{{task.taskDescription}}</div>
+                            
+                            <label class="control-label label-tasks col-xs-6">Task Priority</label>
+                            <div class="panel-tasktPri text-center col-xs-6">{{task.taskPriority}}</div>
+
+                            <p style="padding:20px;"></p>
+
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <button class="btn btn-primary btn-block panel-editBtn" data-toggle="modal" data-target="#editModal" ng-click="pushmodal(task)"><i class="glyphicon glyphicon-pencil"></i></button>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-danger btn-block panel-delBtn" ng-click="deletetask(task.taskID,$event)"><span class="glyphicon glyphicon-trash"></span></button>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

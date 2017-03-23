@@ -1,0 +1,90 @@
+
+<div  class="container">
+	<div class="row">
+		<div class="col-md-12">
+			
+
+			<!-- signup Form -->
+
+			<div class="col-md-6 FormSignup">
+			<form novalidate class="form-horizontal" name="signupForm" ng-submit="submitted=true; signup(signupForm.$valid)">
+				<div class="form-group">
+					<label class="control-label col-md-3">Name:</label>
+				    	<div class="col-md-9">
+				  	 		<input type="text" name="name" required maxlength="45" class="form-control" ng-model="user.userName">
+				  	 		<p ng-if="signupForm.name.$error.required && submitted">You haven't entered your name</p>
+				  	 	</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">Email:</label>
+				    	<div class="col-md-9">
+				  	 		<input type="email" name="email" required maxlength="45" class="form-control" ng-model="user.userEmail">
+				  	 		<p ng-if="signupForm.email.$error.required && submitted">You haven't entered your email</p>
+				  	 		<p ng-if="signupForm.email.$error.email && submitted">not valid email format</p>
+				  	 	</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">Password:</label>
+				    	<div class="col-md-9">
+				  	 		<input type="password" name="password" required maxlength="25" class="form-control" ng-model="user.password">
+				  	 		<p ng-if="signupForm.password.$error.required && submitted">You haven't entered your password</p>
+				  	 	</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">Phone:</label>
+				    	<div class="col-md-9">
+				  	 		<input type="text" class="form-control" ng-model="user.userPhone">
+				  	 	</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">Birth Date:</label>
+				    	<div class="col-md-9">
+				  	 		<input type="text" class="form-control" ng-model="user.birthDate">
+				  	 	</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-6 col-md-offset-3">
+						<button class="btn btn-warning">Sign up</button>
+					</div>
+				</div>
+			</form>
+				
+			</div>
+		
+
+		
+		<!-- Login Form -->
+
+
+		<div class="col-md-6 FormLogin">
+			<form novalidate class="form-horizontal" name="loginForm" ng-submit="log_submited=true; login(loginForm.$valid)">
+				<div class="form-group">
+					<label class="control-label col-md-3">Email:</label>
+				    	<div class="col-md-9">
+				  	 		<input type="email" name="email" required maxlength="45" class="form-control" ng-model="regEmail">
+				  	 		<p ng-if="loginForm.email.$error.required && log_submited">Your haven't Entered your email</p>
+				  	 		<p ng-if="loginForm.email.$error.email && log_submited">not valid email format</p>
+				  	 	</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">Password:</label>
+				    	<div class="col-md-9">
+				  	 		<input type="password" name="password" required maxlength="25" class="form-control" ng-model="regPassword">
+				  	 		<p ng-if="loginForm.password.$error.required && log_submited">Your haven't Entered your password</p>
+				  	 	</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-6 col-md-offset-3">
+						<button class="btn btn-warning">Login</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<style>
+	p{
+		color: red;
+	}
+</style>
