@@ -1,11 +1,11 @@
 # kanban
 
 This kanban project made by: 
-ibrahim Kamel
-Amr Ashraf
-Abeer Abdel Jabar
-Lobna Mohamed
-Reham Mohamed
+ibrahim Kamel, 
+Amr Ashraf, 
+Abeer Abdel Jabar, 
+Lobna Mohamed, 
+Reham Mohamed, 
 
 Project Description:
 
