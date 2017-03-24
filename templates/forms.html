@@ -9,6 +9,7 @@
 			<div class="col-md-6 FormSignup">
 			<form novalidate class="form-horizontal" name="signupForm" ng-submit="submitted=true; signup(signupForm.$valid)">
 				<div class="form-group">
+					<h1 class="text-info text-center">Signup <span class="glyphicon glyphicon-new-window"></span></h1>
 					<label class="control-label col-md-3">Name:</label>
 				    	<div class="col-md-9">
 				  	 		<input type="text" name="name" required maxlength="45" class="form-control" ng-model="user.userName">
@@ -58,6 +59,7 @@
 
 		<div class="col-md-6 FormLogin">
 			<form novalidate class="form-horizontal" name="loginForm" ng-submit="log_submited=true; login(loginForm.$valid)">
+			<h1 class="text-info text-center">Login <span class="glyphicon glyphicon-log-in"></span></h1>
 				<div class="form-group">
 					<label class="control-label col-md-3">Email:</label>
 				    	<div class="col-md-9">

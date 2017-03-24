@@ -1,14 +1,15 @@
 
-angular.module("kanbanApp").controller("dashboardCtrl", function(taskFactory, $scope, $location, CloneObj, $timeout) {
+angular.module("kanbanApp").controller("dashboardCtrl", function(taskFactory, $scope,$rootScope, $location, CloneObj, $timeout) {
   $scope.handleDrop = function(item, bin) {
     taskFactory.updateTask(item,bin).then(function(data) {
             //$scope.data = data;
            // $location.url("/dashboard");
-           console.log(item,bin);
+           //console.log(item,bin);
         }, function(err) {
           //  echo(err);
         }) ;
   }
+   $rootScope.logged=false;
     //todo  a7el moshkelet el delete a3raf anhy hadeleto
     $scope.deletetask = function(taskID,e) {
        // taskID = 20;
@@ -115,15 +116,17 @@ angular.module('kanbanApp').controller('forms', function($scope, $rootScope, $lo
 
     //console.log(addUser.x);
     $rootScope.logged=true;
-    console.log($rootScope.logged);
+    
+    //console.log($rootScope.logged);
     $scope.signup = function(isValid) {
         if (isValid) {
             User.signup($scope.user).then(
                 function(res) {
                     console.log(res);
                     if (res == "success") {
+
+                        $rootScope.logged=false;
                         $location.url('/dashboard');
-                        $rootScope.logged=true;
                     } else if (res == "failure") {
                         $location.url('/forms');
                     }
@@ -145,8 +148,9 @@ angular.module('kanbanApp').controller('forms', function($scope, $rootScope, $lo
                     console.log(res);
                     if (res == "success") {
                       //  $scope.log_flag = true;
+
+                        $rootScope.logged=false;
                         $location.url('/dashboard');
-                        $rootScope.logged=true;
                     } else if (res == "failure") {
                         $location.url('/forms');
                     }
@@ -162,7 +166,7 @@ angular.module('kanbanApp').controller('forms', function($scope, $rootScope, $lo
     $scope.signout = function(){
         User.signout().then(
             function(res){
-                $rootScope.logged=false;
+                $rootScope.logged=true;
 
                 $location.url('/forms');
             })   
@@ -179,6 +183,9 @@ angular.module('kanbanApp').controller('profileCtrl', function($scope, $rootScop
     // };
 
   //  $scope.profile = {};
+
+   $rootScope.logged=false;
+   $scope.pass="";
     User.profile().then(
         function(res) {
             // console.log(res);
@@ -186,6 +193,12 @@ angular.module('kanbanApp').controller('profileCtrl', function($scope, $rootScop
                 $location.url('/forms');
             } else {
                 $scope.profile = res;
+                
+                for(var i=0;i<$scope.profile['password'].length;i++)
+                {
+                    $scope.pass+="*";
+                }
+                //console.log($scope.pass);
                 CloneObj.newObj(res).then(function(obj){
                     $scope.original = obj;
                 });
@@ -198,8 +211,15 @@ angular.module('kanbanApp').controller('profileCtrl', function($scope, $rootScop
         });
     //$scope.user=$scope.profile;
     $scope.edituser = function(isvalid, formData) {
-        //console.log(formData);
+        console.log(formData);
         if (isvalid) {
+
+                $scope.pass="";
+                for(var i=0;i<formData['password'].length;i++)
+                {
+                    $scope.pass+="*";
+                }
+                console.log($scope.pass);
             User.edituser(formData).then(
                 function(res) {
                     if (res == "success") {

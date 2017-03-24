@@ -33,23 +33,42 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">Task Priority</label>
-                        <input name="priority" class="form-control" required ng-model = "newTask.priority">
+                        <label class="control-label">Task Priority</label><br>
+                    </div>
+                    <div class="form-group col-xs-4">
+                        <label class="control-label">Low Priority</label>
+                        <input type="radio" name="priority" value="1" required ng-model = "newTask.priority">
+                    </div>
+
+                    <div class="form-group col-xs-4">
+                        <label class="control-label">Medium Priority</label>
+                        <input type="radio" name="priority" value="2" required ng-model = "newTask.priority">
+                    </div>
+
+                    <div class="form-group col-xs-4">
+                        <label class="control-label">High Priority</label>
+                        <input type="radio" name="priority" value="3" required ng-model = "newTask.priority">
                     </div>
 
                     <span class="validation" ng-if = "addtask.priority.$error.required && submitted ">Task Priority cannot be empty !</span>
-
-                    <div class="form-group">
+                    
+                    <div class="form-group col-xs-12">
+                        <hr/>
                         <label class="control-label">Task status</label><br>
-                        <!-- <input name="status" class="form-control" required ng-model = "newTask.status" > -->
-                        <input type="radio" ng-model = "newTask.status" name="status" value="todo">To Do<br>
-                        <input type="radio" ng-model = "newTask.status" name="status" value="inprogress">Doing<br>
-                        <input type="radio" ng-model = "newTask.status" name="status" value="testing">Testing<br>
-                        <input type="radio" ng-model = "newTask.status" name="status" value="done">Done<br>
+                    
+                        <select class="form-control" required ng-model = "newTask.status">
+                                <option name="status" selected value="todo">todo</option>
+                                <option name="status" value="inprogress">inprogress</option>
+                                <option name="status" value="testing">testing</option>
+                                <option name="status" value="done">done</option>
+                        </select>
+
                     </div>
 
                     <span class="validation" ng-if = "addtask.status.$error.required && submitted " >Task status cannot be empty</span>
-                    <button class="btn btn-success"> Add Task + </button>
+                    <div class="form-group">
+                        <button class="btn btn-success col-xs-offset-9"> Add Task + </button>
+                    </div>
                     <!-- <h1>{{data}}</h1> -->
                 </form>
             </div>    
@@ -92,14 +111,37 @@
 
                     <div class="form-group">
                         <label class="control-label">Task Priority</label>
-                        <input name="priority" class="form-control" required ng-model = "editedtask.taskPriority">
+                    </div>
+
+                    <div class="form-group">
+                        <!-- <input type="radio" name="priority" class="form-control" required ng-model = "editedtask.taskPriority"> -->
+                        <div class="form-group col-xs-4">
+                            <label class="control-label">Low Priority</label>
+                            <input type="radio" name="priority" value="1" required ng-model = "editedtask.taskPriority">
+                        </div>
+
+                        <div class="form-group col-xs-4">
+                            <label class="control-label">Medium Priority</label>
+                            <input type="radio" name="priority" value="2" required ng-model = "editedtask.taskPriority">
+                        </div>
+
+                        <div class="form-group col-xs-4">
+                            <label class="control-label">High Priority</label>
+                            <input type="radio" name="priority" value="3" required ng-model = "editedtask.taskPriority">
+                        </div>
                     </div>
 
                     <span class="validation" ng-if = "updatetask.priority.$error.required && submitted ">Task Priority cannot be empty !</span>
 
-                    <div class="form-group">
+                    <div ng-hide="true" class="form-group">
                         <label class="control-label">Task status</label>
-                        <input name="status" class="form-control" required ng-model = "editedtask.taskStatus" >
+                        <!-- <input name="status" class="form-control" required ng-model = "editedtask.taskStatus" > -->
+                        <select class="form-control" required ng-model = "editedtask.taskStatus">
+                            <option name="status" value="todo">todo</option>
+                            <option name="status" value="inprogress">inprogress</option>
+                            <option name="status" value="testing">testing</option>
+                            <option name="status" value="done">done</option>
+                        </select>
                     </div>
 
                     <span class="validation" ng-if = "updatetask.status.$error.required && submitted " >Task status cannot be empty</span>

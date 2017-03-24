@@ -28,9 +28,9 @@
 				<ul class="row">
 					<!--<li><a href="#!/">Forms</li>-->
 					
-					<li ng-if="logged" class="navList" ng-click="signout()" ><a class=" btn btn-default" href="#!/forms" >Signout</a></li>
-					<li class="navList"><a class=" btn btn-default" href="#!/profile">Profile</a></li>
-					<li class="navList"><a class=" btn btn-default" href="#!/dashboard">Dashboard</a></li>
+					<li ng-hide="logged" class="navList" ng-click="signout()" ><a class=" btn btn-default" href="#!/forms" >Signout</a></li>
+					<li ng-hide="logged" class="navList"><a class=" btn btn-default" href="#!/profile">Profile</a></li>
+					<li ng-hide="logged" class="navList"><a class=" btn btn-default" href="#!/dashboard">Dashboard</a></li>
 				</ul>
 			</div>
 		</div>
